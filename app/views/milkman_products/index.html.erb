@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Milkman Products</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Product name</th>
+      <th>Product price</th>
+      <th>Milkman</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @milkman_products.each do |milkman_product| %>
+      <tr>
+        <td><%= milkman_product.product_name %></td>
+        <td><%= milkman_product.product_price %></td>
+        <td><%= milkman_product.milkman_id %></td>
+        <td><%= link_to 'Show', milkman_product %></td>
+        <td><%= link_to 'Edit', edit_milkman_product_path(milkman_product) %></td>
+        <td><%= link_to 'Destroy', milkman_product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Milkman Product', new_milkman_product_path %>

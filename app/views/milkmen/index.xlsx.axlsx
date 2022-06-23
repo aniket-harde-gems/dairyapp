@@ -1,0 +1,16 @@
+wb = xlsx_package.workbook
+
+wb.add_worksheet(name: "Customers") do |sheet|
+  # Create the header row
+  header = ["Customer Name", "Customer Address", "Customer Mobile Number"]
+
+  @milkman_products.each do |product|
+    morning = product.product_name + " (Morning) Quantity" 
+    evening = product.product_name + " (Evening) Quantity"
+    header << morning
+    header << evening
+  end
+
+  sheet.add_row header
+
+end

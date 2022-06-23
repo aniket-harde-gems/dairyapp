@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Milkman Customers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Customer name</th>
+      <th>Customer address</th>
+      <th>Customer mobile number</th>
+      <th>Milkman</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @milkman_customers.each do |milkman_customer| %>
+      <tr>
+        <td><%= milkman_customer.customer_name %></td>
+        <td><%= milkman_customer.customer_address %></td>
+        <td><%= milkman_customer.customer_mobile_number %></td>
+        <td><%= milkman_customer.milkman_id %></td>
+        <td><%= link_to 'Show', milkman_customer %></td>
+        <td><%= link_to 'Edit', edit_milkman_customer_path(milkman_customer) %></td>
+        <td><%= link_to 'Destroy', milkman_customer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Milkman Customer', new_milkman_customer_path %>

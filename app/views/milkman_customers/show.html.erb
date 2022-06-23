@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Customer name:</strong>
+  <%= @milkman_customer.customer_name %>
+</p>
+
+<p>
+  <strong>Customer address:</strong>
+  <%= @milkman_customer.customer_address %>
+</p>
+
+<p>
+  <strong>Customer mobile number:</strong>
+  <%= @milkman_customer.customer_mobile_number %>
+</p>
+
+<p>
+  <strong>Milkman:</strong>
+  <%= @milkman_customer.milkman_id %>
+</p>
+
+<%= link_to 'Edit', edit_milkman_customer_path(@milkman_customer) %> |
+<%= link_to 'Back', milkman_customers_path %>
