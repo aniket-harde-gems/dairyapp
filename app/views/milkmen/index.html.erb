@@ -5,6 +5,11 @@
   link_to 'Download the milkman customer product sheet',
   milkmen_path(format: :xlsx)
 %>
+<br>
+<%=
+  link_to 'Upload the milkman customer product sheet',
+  new_milkman_customers_import_path
+%>
 
 <table>
   <thead>
@@ -29,3 +34,4 @@
 <br>
 
 <%= link_to 'New Milkman', new_milkman_path %>
+
