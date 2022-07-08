@@ -96,7 +96,7 @@ class MilkmanCustomersImport
         #Saving Milkman Customer Delivery Preference
         if !milkman_customer.errors.present?
           header_for_customer_delivery_preference = [ "milkman_customer_id", "milkman_product_id", "shift", "quantity"]
-
+          col_id = 3
           product_names.each do | p_name |
             milkman_product = MilkmanProduct.find_by(product_name: p_name)
             shifts.each do |shift|
@@ -107,15 +107,14 @@ class MilkmanCustomersImport
                 row_for_customer_delivery_preference << "m"
               end
 
-              col_id = 3
               row_for_customer_delivery_preference << spreadsheet.row(i)[col_id]
 
               hash_for_delivery_preference = Hash[[header_for_customer_delivery_preference, row_for_customer_delivery_preference].transpose]
               customer_delivery_preference = CustomerDeliveryPreference.new
               customer_delivery_preference.attributes = hash_for_delivery_preference.to_hash
+              col_id += 1
               if customer_delivery_preference.valid?
                 customer_delivery_preference.save
-                col_id += 1
               else
                 customer_delivery_preference.errors.full_messages.each do |msg|
                   errors.add :base, "Row #{i} can't save customer delivery preference because: #{msg}"
