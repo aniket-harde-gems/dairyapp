@@ -5,9 +5,13 @@ class MilkmanCustomersImportsController < ApplicationController
 
   def create
     @milkman_customers_import = MilkmanCustomersImport.new(params[:milkman_customers_import])
-    @milkman_customers_import.save
-    redirect_to milkmen_path
+    if @milkman_customers_import.save
+      redirect_to milkmen_path
+    else
+      render :new
+    end
     
   end
+
 
 end

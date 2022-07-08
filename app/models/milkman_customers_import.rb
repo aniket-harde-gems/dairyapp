@@ -30,20 +30,21 @@ class MilkmanCustomersImport
     header
   end
 
-  def check_header(header)
+  def is_header_valid(header)
     orignal_header = get_orignal_header
     imported_header = header
-    if !(orignal_header == imported_header)
-      binding.pry
-      errors.add :base, "Invalid header"
-    end
+    orignal_header == imported_header
   end
 
 	def save_imported_records
+    return_value = true
     ActiveRecord::Base.transaction do
       spreadsheet = open_spreadsheet
       header = spreadsheet.row(1)
-      check_header(header);
+      if !is_header_valid(header)
+        errors.add :base, "Invalid header"
+        return false
+      end
 
       #Extracting product names and their shifts 
       product_names = []
@@ -68,52 +69,70 @@ class MilkmanCustomersImport
         #Saving Milkman Customer
         header_for_customer = [ "customer_name" , "customer_address" , "customer_mobile_number" , "milkman_id" ]
         row_for_customer = []
+        values_of_product_quantity = []
         spreadsheet.row(i).each_with_index do |data, idx|
           if idx <= 2
             row_for_customer << data
+          elsif idx > 2
+            values_of_product_quantity << data
           end
         end
+
         row_for_customer << milkman.id
         hash_for_customer = Hash[[header_for_customer, row_for_customer].transpose]
         milkman_customer = MilkmanCustomer.new
         milkman_customer.attributes = hash_for_customer.to_hash
-        milkman_customer.valid?
-        milkman_customer.save
+        if milkman_customer.valid?
+          if values_of_product_quantity.any? { |v| !v.nil?} #checking if array containes any valid value
+            milkman_customer.save
+          end
+        else
+          milkman_customer.errors.full_messages.each do |msg|
+            errors.add :base, "Row #{i} can't save customer because: #{msg}"
+          end
+          return_value = false
+        end
 
         #Saving Milkman Customer Delivery Preference
-        header_for_customer_delivery_preference = [ "milkman_customer_id", "milkman_product_id", "shift", "quantity"]
+        if !milkman_customer.errors.present?
+          header_for_customer_delivery_preference = [ "milkman_customer_id", "milkman_product_id", "shift", "quantity"]
 
-        
-          
-        product_names.each do | p_name |
-          milkman_product = MilkmanProduct.find_by(product_name: p_name)
-          shifts.each do |shift|
-            if shift === "Evening"
-              shift = "e"
-            elsif shift === "Morning"
-              shift = "m"
+          product_names.each do | p_name |
+            milkman_product = MilkmanProduct.find_by(product_name: p_name)
+            shifts.each do |shift|
+              row_for_customer_delivery_preference = [milkman_customer.id, milkman_product.id]
+              if shift === "Evening"
+                row_for_customer_delivery_preference << "e"
+              elsif shift === "Morning"
+                row_for_customer_delivery_preference << "m"
+              end
+
+              col_id = 3
+              row_for_customer_delivery_preference << spreadsheet.row(i)[col_id]
+
+              hash_for_delivery_preference = Hash[[header_for_customer_delivery_preference, row_for_customer_delivery_preference].transpose]
+              customer_delivery_preference = CustomerDeliveryPreference.new
+              customer_delivery_preference.attributes = hash_for_delivery_preference.to_hash
+              if customer_delivery_preference.valid?
+                customer_delivery_preference.save
+                col_id += 1
+              else
+                customer_delivery_preference.errors.full_messages.each do |msg|
+                  errors.add :base, "Row #{i} can't save customer delivery preference because: #{msg}"
+                end
+                return_value = false
+              end
             end
-            row_for_customer_delivery_preference = [milkman_customer.id, milkman_product.id, shift]
-            col_id = 3
-            row_for_customer_delivery_preference << spreadsheet.row(i)[col_id]
-
-          
-          
-            hash_for_delivery_preference = Hash[[header_for_customer_delivery_preference, row_for_customer_delivery_preference].transpose]
-            customer_delivery_preference = CustomerDeliveryPreference.new
-            customer_delivery_preference.attributes = hash_for_delivery_preference.to_hash
-            customer_delivery_preference.valid?
-            customer_delivery_preference.save
-            col_id += 1
           end
         end
       
       end
     end
+    return_value
   end
 
 	def save
-    save_imported_records
+    return save_imported_records
   end
 
 end
