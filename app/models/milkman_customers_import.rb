@@ -96,7 +96,7 @@ class MilkmanCustomersImport
         #Saving Milkman Customer Delivery Preference
         if !milkman_customer.errors.present?
           header_for_customer_delivery_preference = [ "milkman_customer_id", "milkman_product_id", "shift", "quantity"]
-
+          col_id = 3
           product_names.each do | p_name |
             milkman_product = MilkmanProduct.find_by(product_name: p_name)
             shifts.each do |shift|
@@ -107,7 +107,6 @@ class MilkmanCustomersImport
                 row_for_customer_delivery_preference << "m"
               end
 
-              col_id = 3
               row_for_customer_delivery_preference << spreadsheet.row(i)[col_id]
 
               hash_for_delivery_preference = Hash[[header_for_customer_delivery_preference, row_for_customer_delivery_preference].transpose]
