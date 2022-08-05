@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  customer_deliver_preference_id: 1
+  recurring_type: 1
+  day_of_week: 1
+  seperation_count: 1
+
+two:
+  customer_deliver_preference_id: 1
+  recurring_type: 1
+  day_of_week: 1
+  seperation_count: 1

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_24_065358) do
+ActiveRecord::Schema.define(version: 2022_07_29_142431) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,17 @@ ActiveRecord::Schema.define(version: 2022_06_24_065358) do
     t.integer "milkman_product_id"
     t.string "shift"
     t.integer "quantity"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.date "starting_date"
+    t.date "ending_date"
+  end
+
+  create_table "customer_delivery_recurrings", force: :cascade do |t|
+    t.integer "customer_delivery_preference_id"
+    t.integer "recurring_type"
+    t.integer "day_of_week"
+    t.integer "seperation_count"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -34,7 +45,7 @@ ActiveRecord::Schema.define(version: 2022_06_24_065358) do
   create_table "milkman_customers", force: :cascade do |t|
     t.string "customer_name"
     t.string "customer_address"
-    t.integer "customer_mobile_number"
+    t.string "customer_mobile_number"
     t.bigint "milkman_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
