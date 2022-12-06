@@ -14,7 +14,7 @@ wb.styles do |style|
 
     sheet.add_row header
 
-    sheet.add_data_validation("D2:D100", {
+    sheet.add_data_validation("D2:D500", {
       :type => :list,
       :formula1 => product_names,
       :showDropDown => false,
@@ -25,7 +25,7 @@ wb.styles do |style|
       :showInputMessage => true,
       :prompt => 'Choose the product name from dropdown'})
 
-    sheet.add_data_validation("F2:F100", {
+    sheet.add_data_validation("F2:F500", {
       :type => :list,
       :formula1 => '"Morning,Evening"',
       :showDropDown => false,
@@ -36,7 +36,7 @@ wb.styles do |style|
       :showInputMessage => true,
       :prompt => 'Choose the shift value from dropdown'})
 
-    sheet.add_data_validation("I2:I100", {
+    sheet.add_data_validation("I2:I500", {
       :type => :list,
       :formula1 => '"Daily,Alternate Days,Every Third Day,Week Day"',
       :showDropDown => false,
@@ -47,7 +47,7 @@ wb.styles do |style|
       :showInputMessage => true,
       :prompt => 'Choose the recurring type from dropdown'})
 
-    sheet.add_data_validation("J2:J100", {
+    sheet.add_data_validation("J2:J500", {
       :type => :list,
       :formula1 => '"Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday"',
       :showDropDown => false,
@@ -58,7 +58,7 @@ wb.styles do |style|
       :showInputMessage => true,
       :prompt => 'Choose name of day if recurring type is Week Day'})
 
-     sheet.add_data_validation("K2:K100", {
+     sheet.add_data_validation("K2:K500", {
       :type => :list,
       :formula1 => '"Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday"',
       :showDropDown => false,
@@ -69,7 +69,7 @@ wb.styles do |style|
       :showInputMessage => true,
       :prompt => 'Choose name of day if recurring type is Week Day'})
 
-     sheet.add_data_validation("L2:L100", {
+     sheet.add_data_validation("L2:L500", {
       :type => :list,
       :formula1 => '"Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday"',
       :showDropDown => false,
@@ -80,7 +80,7 @@ wb.styles do |style|
       :showInputMessage => true,
       :prompt => 'Choose name of day if recurring type is Week Day'})
 
-     sheet.add_data_validation("M2:M100", {
+     sheet.add_data_validation("M2:M500", {
       :type => :list,
       :formula1 => '"Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday"',
       :showDropDown => false,
@@ -91,7 +91,7 @@ wb.styles do |style|
       :showInputMessage => true,
       :prompt => 'Choose name of day if recurring type is Week Day'})
 
-     sheet.add_data_validation("N2:N100", {
+     sheet.add_data_validation("N2:N500", {
       :type => :list,
       :formula1 => '"Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday"',
       :showDropDown => false,
@@ -102,7 +102,7 @@ wb.styles do |style|
       :showInputMessage => true,
       :prompt => 'Choose name of day if recurring type is Week Day'})
 
-     sheet.add_data_validation("O2:O100", {
+     sheet.add_data_validation("O2:O500", {
       :type => :list,
       :formula1 => '"Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday"',
       :showDropDown => false,
@@ -113,7 +113,7 @@ wb.styles do |style|
       :showInputMessage => true,
       :prompt => 'Choose name of day if recurring type is Week Day'})
 
-     sheet.add_data_validation("P2:P100", {
+     sheet.add_data_validation("P2:P500", {
       :type => :list,
       :formula1 => '"Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday"',
       :showDropDown => false,
@@ -124,7 +124,7 @@ wb.styles do |style|
       :showInputMessage => true,
       :prompt => 'Choose name of day if recurring type is Week Day'})
 
-    sheet.add_data_validation("Q2:Q100", {
+    sheet.add_data_validation("Q2:Q500", {
       :type => :list,
       :formula1 => '"Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday"',
       :showDropDown => false,
