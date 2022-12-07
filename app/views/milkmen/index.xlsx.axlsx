@@ -2,7 +2,7 @@ wb = xlsx_package.workbook
 wb.styles do |style|
   wb.add_worksheet(name: "Customers") do |sheet|
     # Create the header row
-    header = ["Customer Name", "Customer Address", "Customer Mobile Number", "Product Name", "Quantity", "Shift", "Starting Date", "Ending Date", "Recurring Type", "Day 1", "Day 2", "Day3", "Day4", "Day5", "Day6", "Day7"]
+    header = ["Customer Name", "Customer Address", "Customer Mobile Number", "Product Name", "Quantity", "Shift", "Billing Period", "Starting Date", "Ending Date", "Recurring Type", "Day 1", "Day 2", "Day3", "Day4", "Day5", "Day6", "Day7"]
     product_names = ""
 
     @milkman_products.each do |product|
@@ -36,7 +36,18 @@ wb.styles do |style|
       :showInputMessage => true,
       :prompt => 'Choose the shift value from dropdown'})
 
-    sheet.add_data_validation("I2:I500", {
+    sheet.add_data_validation("G2:G500", {
+      :type => :list,
+      :formula1 => '"Monthly,Half Monthly (Twice in a month)"',
+      :showDropDown => false,
+      :showErrorMessage => true,
+      :errorTitle => '',
+      :error => 'Please use the dropdown selector to choose the value',
+      :errorStyle => :stop,
+      :showInputMessage => true,
+      :prompt => 'Choose the Billing Period from dropdown'})
+
+    sheet.add_data_validation("J2:J500", {
       :type => :list,
       :formula1 => '"Daily,Alternate Days,Every Third Day,Week Day"',
       :showDropDown => false,
@@ -47,18 +58,7 @@ wb.styles do |style|
       :showInputMessage => true,
       :prompt => 'Choose the recurring type from dropdown'})
 
-    sheet.add_data_validation("J2:J500", {
-      :type => :list,
-      :formula1 => '"Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday"',
-      :showDropDown => false,
-      :showErrorMessage => true,
-      :errorTitle => '',
-      :error => 'Please use the dropdown selector to choose the value',
-      :errorStyle => :stop,
-      :showInputMessage => true,
-      :prompt => 'Choose name of day if recurring type is Week Day'})
-
-     sheet.add_data_validation("K2:K500", {
+    sheet.add_data_validation("K2:K500", {
       :type => :list,
       :formula1 => '"Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday"',
       :showDropDown => false,
@@ -124,7 +124,7 @@ wb.styles do |style|
       :showInputMessage => true,
       :prompt => 'Choose name of day if recurring type is Week Day'})
 
-    sheet.add_data_validation("Q2:Q500", {
+     sheet.add_data_validation("Q2:Q500", {
       :type => :list,
       :formula1 => '"Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday"',
       :showDropDown => false,
@@ -133,7 +133,7 @@ wb.styles do |style|
       :error => 'Please use the dropdown selector to choose the value',
       :errorStyle => :stop,
       :showInputMessage => true,
-      :prompt => 'Choose name of day if recurring type is Week Day'})    
+      :prompt => 'Choose name of day if recurring type is Week Day'})
   end
 end
 
