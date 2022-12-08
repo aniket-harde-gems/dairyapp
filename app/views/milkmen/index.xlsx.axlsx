@@ -1,5 +1,6 @@
 wb = xlsx_package.workbook
 wb.styles do |style|
+  date = style.add_style(:format_code => "dd/mm/yyyy")
   wb.add_worksheet(name: "Customers") do |sheet|
     # Create the header row
     header = ["Customer Name", "Customer Address", "Customer Mobile Number", "Product Name", "Quantity", "Shift", "Billing Period", "Starting Date", "Ending Date", "Recurring Type", "Day 1", "Day 2", "Day3", "Day4", "Day5", "Day6", "Day7"]
@@ -13,6 +14,10 @@ wb.styles do |style|
     product_names.concat("\"")
 
     sheet.add_row header
+
+    (2..500).each do |n|
+      sheet.add_row [ "","","","","","","","dd/mm/yyyy","dd/mm/yyyy"], :style  => [nil,nil,nil,nil,nil,nil,nil,date,date]
+    end
 
     sheet.add_data_validation("D2:D500", {
       :type => :list,
